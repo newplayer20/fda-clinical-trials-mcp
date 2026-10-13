@@ -1,0 +1,17 @@
+# Clinical Trial & FDA Regulatory Data API
+
+> Token-optimized, real-time structured data feeds covering FDA drug approvals and clinical trial updates. Designed specifically for AI agent context windows.
+
+## Base Endpoint
+https://yourdomain.com/api/v1/fda-tracker
+
+## Access & Monetization
+- **Autonomous Agents (x402 Protocol):** Pay-per-call micro-transactions ($0.05 USDC on Base Network, Chain ID 8453). Pass payment headers automatically.
+- **Developer API Key (SaaS):** Unlimited access for $199/month. Pass via `Authorization: Bearer sk_live_...`. Get a key at https://yourdomain.com/dashboard.
+
+## Parameters
+- `limit`: Number of records to return (default: 20)
+- `condition`: Filter by disease or condition (e.g., `?condition=Alzheimer`)
+
+## Output Format
+Clean, flattened JSON payloads engineered to eliminate redundant markup and minimize token usage.

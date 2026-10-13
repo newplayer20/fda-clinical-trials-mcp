@@ -1,0 +1,24 @@
+{
+    "mcpVersion": "1.0.0",
+    "name": "fda-clinical-trial-tracker",
+    "description": "Real-time token-optimized FDA approvals and clinical trial tracking data feed.",
+    "transport": {
+      "type": "http",
+      "endpoint": "https://yourdomain.com/api/v1/fda-tracker"
+    },
+    "authentication": {
+      "type": "dual",
+      "options": [
+        {
+          "type": "x402",
+          "network": "base",
+          "asset": "USDC",
+          "cost_per_call": "0.05"
+        },
+        {
+          "type": "bearer",
+          "header": "Authorization"
+        }
+      ]
+    }
+  }
