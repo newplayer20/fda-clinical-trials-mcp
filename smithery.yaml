@@ -1,0 +1,29 @@
+mcp:
+  name: fda-clinical-trials-mcp
+  displayName: FDA Clinical Trials MCP
+  description: Token-optimized Data-as-a-Service platform providing structured access to FDA clinical trial records for AI agents and clinical researchers.
+  version: 1.0.0
+  homepage: https://github.com/newplayer20/fda-clinical-trials-mcp
+  icon: https://github.githubassets.com/favicons/favicon.svg
+  tools:
+    - name: get_clinical_trials
+      description: Fetch token-optimized, filtered clinical trial records from the FDA database based on a search query or medical condition.
+      inputSchema:
+        type: object
+        properties:
+          q:
+            type: string
+            description: The medical keyword, condition, or intervention to search for in clinical trials.
+        required:
+          - q
+      outputSchema:
+        type: object
+        properties:
+          data:
+            type: array
+            description: List of matching clinical trial records.
+            items:
+              type: object
+      annotations:
+        readOnly: true
+        idempotent: true
