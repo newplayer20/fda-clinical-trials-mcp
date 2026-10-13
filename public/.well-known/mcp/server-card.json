@@ -2,7 +2,7 @@
     "$schema": "https://smithery.ai/mcp-server-card.schema.json",
     "name": "fda-clinical-trials-mcp",
     "displayName": "FDA Clinical Trials DaaS",
-    "description": "Token-optimized tokenized Data-as-a-Service platform providing structured access to FDA clinical trial records for AI agents and clinical researchers.",
+    "description": "Token-optimized Data-as-a-Service platform providing structured access to FDA clinical trial records for AI agents and clinical researchers.",
     "version": "1.0.0",
     "homepage": "https://github.com/newplayer20/fda-clinical-trials-mcp",
     "icon": "https://github.githubassets.com/favicons/favicon.svg",
@@ -25,7 +25,7 @@
           "properties": {
             "data": {
               "type": "array",
-              "description": "List of clinical trial records matching the query.",
+              "description": "List of matching clinical trial records.",
               "items": {
                 "type": "object"
               }
