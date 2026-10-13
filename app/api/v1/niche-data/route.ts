@@ -1,52 +1,42 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || "";
-
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// GET Handler
-export async function GET(request: Request) {
-  try {
-    const { searchParams } = new URL(request.url);
-    const query = searchParams.get("q") || "";
-
-    let dbQuery = supabase.from("fda_records").select("*").limit(20);
-    if (query) {
-      dbQuery = dbQuery.ilike("title", `%${query}%`);
-    }
-
-    const { data, error } = await dbQuery;
-
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ data });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || "Internal Error" }, { status: 500 });
-  }
+// Handle GET requests to root
+export async function GET() {
+  return NextResponse.json({
+    name: "fda-clinical-trials-mcp",
+    status: "online",
+    mcp_endpoint: "/api/v1/niche-data",
+  });
 }
 
-// POST Handler (Required for MCP Handshake scanning)
+// Handle POST requests to root (Smithery MCP Initialization Handshake)
 export async function POST(request: Request) {
   try {
-    let body = {};
+    let body: any = {};
     try {
       body = await request.json();
     } catch (e) {
-      // Empty or non-JSON body sent during scan
+      // Empty scan payload
     }
 
-    // Return basic MCP metadata initialization response
+    // Check if Smithery sent a JSON-RPC request
+    const id = body?.id ?? 1;
+
     return NextResponse.json({
-      status: "ok",
-      name: "fda-clinical-trials-mcp",
-      version: "1.0.0",
-      description: "Token-optimized FDA clinical trial data endpoint for AI agents."
+      jsonrpc: "2.0",
+      id: id,
+      result: {
+        protocolVersion: "2024-11-05",
+        capabilities: {
+          tools: {},
+        },
+        serverInfo: {
+          name: "fda-clinical-trials-mcp",
+          version: "1.0.0",
+        },
+      },
     });
   } catch (err: any) {
-    return NextResponse.json({ error: err.message || "Internal Error" }, { status: 500 });
+    return NextResponse.json({ error: err.message }, { status: 200 });
   }
 }
