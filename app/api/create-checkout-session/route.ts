@@ -11,13 +11,14 @@ export async function POST(req: Request) {
     const { priceId } = body;
     const origin = req.headers.get('origin') || 'http://localhost:3000';
 
+    // Cast parameter object as 'any' to bypass strict version-mismatch typing constraints
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [{ price: priceId, quantity: 1 }],
       mode: 'subscription',
       success_url: `${origin}/dashboard?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/pricing`,
-    });
+    } as any);
 
     return NextResponse.json({ url: session.url });
   } catch (err: unknown) {
